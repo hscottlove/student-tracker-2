@@ -1,16 +1,20 @@
-import { Form, Row, Col, Container } from 'react-bootstrap';
+import { useContext } from 'react';
+import StudentContext from '../context/StudentContext';
+import { Form, Row, Col, Container, Button } from 'react-bootstrap';
 
 export default function StudentEditForm() {
+  const { text, handleTextChange, handleSubmit } = useContext(StudentContext);
+
   return (
     <Container>
-      <Form className='mb-5'>
+      <Form className='mb-5' onSubmit={handleSubmit}>
         <Row className='mb-3'>
           <Form.Group as={Col} htmlFor='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control
+              onChange={handleTextChange}
               type='text'
-              name='name'
-              id='name'
+              value={text}
               placeholder='Full name'
             />
           </Form.Group>
@@ -48,6 +52,10 @@ export default function StudentEditForm() {
             rows={3}
           />
         </Form.Group>
+
+        <Button variant='primary' type='submit'>
+          Submit
+        </Button>
       </Form>
     </Container>
   );

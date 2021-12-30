@@ -1,9 +1,11 @@
 import { createContext, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const StudentContext = createContext();
 
 export const StudentProvider = ({ children }) => {
   const [students, setStudents] = useState(data);
+  const [text, setText] = useState('');
   const [search, setSearch] = useState('');
 
   const filterStudents = students.filter((student) => {
@@ -14,19 +16,44 @@ export const StudentProvider = ({ children }) => {
     setSearch(e.target.value);
   }
 
+  function handleTextChange(e) {
+    setText(e.target.value);
+  }
+
+  function handleStudentAdd(newStudent) {
+    newStudent.id = uuidv4();
+    console.log(newStudent);
+  }
+
   function handleStudentDelete(id) {
     if (window.confirm(`Are you sure you want to delete this student?`)) {
       setStudents(students.filter((student) => student.id !== id));
     }
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const newStudent = {
+      text,
+    };
+
+    handleStudentAdd(newStudent);
+
+    setText('');
+  }
+
   return (
     <StudentContext.Provider
       value={{
         students,
+        text,
         filterStudents,
         handleSearchChange,
+        handleTextChange,
+        handleStudentAdd,
         handleStudentDelete,
+        handleSubmit,
       }}
     >
       {children}
