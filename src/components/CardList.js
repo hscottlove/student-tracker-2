@@ -4,12 +4,12 @@ import StudentCard from './StudentCard';
 import StudentContext from '../context/StudentContext';
 
 export default function CardList() {
-  const { students } = useContext(StudentContext);
+  const { filterStudents } = useContext(StudentContext);
   return (
     <>
       <Container>
         <Row className='justify-content-center gap-4'>
-          {students.map((student) => {
+          {filterStudents.map((student) => {
             return <StudentCard key={student.id} {...student} />;
           })}
         </Row>

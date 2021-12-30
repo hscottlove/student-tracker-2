@@ -4,8 +4,31 @@ const StudentContext = createContext();
 
 export const StudentProvider = ({ children }) => {
   const [students, setStudents] = useState(data);
+  const [search, setSearch] = useState('');
+
+  const filterStudents = students.filter((student) => {
+    return student.name.toLowerCase().includes(search.toLowerCase());
+  });
+
+  function handleSearchChange(e) {
+    setSearch(e.target.value);
+  }
+
+  function handleStudentDelete(id) {
+    if (window.confirm(`Are you sure you want to delete this student?`)) {
+      setStudents(students.filter((student) => student.id !== id));
+    }
+  }
+
   return (
-    <StudentContext.Provider value={{ students }}>
+    <StudentContext.Provider
+      value={{
+        students,
+        filterStudents,
+        handleSearchChange,
+        handleStudentDelete,
+      }}
+    >
       {children}
     </StudentContext.Provider>
   );

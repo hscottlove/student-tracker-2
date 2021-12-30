@@ -1,11 +1,14 @@
+import { useContext } from 'react';
 import logo from '../assists/logo.png';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
+import StudentContext from '../context/StudentContext';
 
 export default function NavBar() {
+  const { handleSearchChange } = useContext(StudentContext);
   return (
     <Navbar bg='light' expand='lg' className='mb-5'>
       <Container>
@@ -34,6 +37,7 @@ export default function NavBar() {
               placeholder='Search student'
               className='me-2'
               aria-label='Search'
+              onChange={handleSearchChange}
             />
           </Form>
         </Navbar.Collapse>
