@@ -3,7 +3,8 @@ import StudentContext from '../context/StudentContext';
 import { Form, Row, Col, Container, Button } from 'react-bootstrap';
 
 export default function StudentEditForm() {
-  const { text, handleTextChange, handleSubmit } = useContext(StudentContext);
+  const { name, phone, handleSubmit, handleNameChange, handlePhoneChange } =
+    useContext(StudentContext);
 
   return (
     <Container>
@@ -12,9 +13,9 @@ export default function StudentEditForm() {
           <Form.Group as={Col} htmlFor='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control
-              onChange={handleTextChange}
+              onChange={handleNameChange}
               type='text'
-              value={text}
+              value={name}
               placeholder='Full name'
             />
           </Form.Group>
@@ -28,7 +29,13 @@ export default function StudentEditForm() {
         <Row className='mb-3'>
           <Form.Group as={Col} htmlFor='phone'>
             <Form.Label>Phone</Form.Label>
-            <Form.Control type='number' name='phone' id='phone' />
+            <Form.Control
+              onChange={handlePhoneChange}
+              value={phone}
+              type='text'
+              name='phone'
+              id='phone'
+            />
           </Form.Group>
 
           <Form.Group as={Col} htmlFor='email'>

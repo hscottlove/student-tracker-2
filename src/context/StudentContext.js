@@ -5,24 +5,69 @@ const StudentContext = createContext();
 
 export const StudentProvider = ({ children }) => {
   const [students, setStudents] = useState(data);
-  const [text, setText] = useState('');
-  const [search, setSearch] = useState('');
+  const [name, setName] = useState('');
+  const [image, setImage] = useState(
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU'
+  );
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [grade, setGrade] = useState('');
+  const [notes, setNotes] = useState('');
+  // const [search, setSearch] = useState('');
 
-  const filterStudents = students.filter((student) => {
-    return student.name.toLowerCase().includes(search.toLowerCase());
-  });
+  // const filterStudents = students.filter((student) => {
+  //   return student.name.toLowerCase().includes(search.toLowerCase());
+  // });
 
-  function handleSearchChange(e) {
-    setSearch(e.target.value);
-  }
+  // function handleSearchChange(e) {
+  //   setSearch(e.target.value);
+  // }
 
-  function handleTextChange(e) {
-    setText(e.target.value);
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const newStudent = {
+      name,
+      image,
+      phone,
+      email,
+      grade,
+      notes,
+    };
+
+    handleStudentAdd(newStudent);
+
+    setName('');
+    setPhone('');
+    setEmail('');
+    setGrade('');
+    setNotes('');
   }
 
   function handleStudentAdd(newStudent) {
     newStudent.id = uuidv4();
-    console.log(newStudent);
+    setStudents([newStudent, ...students]);
+  }
+
+  function handleNameChange(e) {
+    setName(e.target.value);
+  }
+
+  function handleImageChange(e) {
+    setImage(e.target.value);
+  }
+
+  function handlePhoneChange(e) {
+    setPhone(e.target.value);
+  }
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+  function handleGradeChange(e) {
+    setGrade(e.target.value);
+  }
+  function handleNotesChange(e) {
+    setNotes(e.target.value);
   }
 
   function handleStudentDelete(id) {
@@ -31,26 +76,16 @@ export const StudentProvider = ({ children }) => {
     }
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    const newStudent = {
-      text,
-    };
-
-    handleStudentAdd(newStudent);
-
-    setText('');
-  }
-
   return (
     <StudentContext.Provider
       value={{
         students,
-        text,
-        filterStudents,
-        handleSearchChange,
-        handleTextChange,
+        name,
+        phone,
+        // filterStudents,
+        // handleSearchChange,
+        handleNameChange,
+        handlePhoneChange,
         handleStudentAdd,
         handleStudentDelete,
         handleSubmit,
