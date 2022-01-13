@@ -5,6 +5,7 @@ import StudentContext from '../context/StudentContext';
 export default function StudentCard(props) {
   const { id, name, image, email, phone, grade, notes } = props;
   const { handleStudentDelete } = useContext(StudentContext);
+
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Img style={{ height: '200px' }} src={image} />

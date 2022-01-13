@@ -9,7 +9,7 @@ export default function StudentEditForm() {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU';
 
   const [name, setName] = useState('');
-  const [image, setImage] = useState(defaultImage);
+  const [image, setImage] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [grade, setGrade] = useState('');
@@ -17,6 +17,11 @@ export default function StudentEditForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (name.trim().length === 1 || name === '') {
+      console.log(`Enter a full name`);
+      return null;
+    }
 
     const newStudent = {
       name,
@@ -30,7 +35,7 @@ export default function StudentEditForm() {
     handleStudentAdd(newStudent);
 
     setName('');
-    setImage(defaultImage);
+    setImage('');
     setPhone('');
     setEmail('');
     setGrade('');
@@ -53,7 +58,11 @@ export default function StudentEditForm() {
 
           <Form.Group as={Col} controlId='formGridImage'>
             <Form.Label>Image</Form.Label>
-            <Form.Control placeholder='Paste URL' />
+            <Form.Control
+              onChange={(e) => setImage(e.target.value)}
+              value={image}
+              placeholder='Paste URL'
+            />
           </Form.Group>
         </Row>
 

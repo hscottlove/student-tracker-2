@@ -4,9 +4,9 @@ import StudentCard from './StudentCard';
 import StudentContext from '../context/StudentContext';
 
 export default function CardList() {
-  const { students } = useContext(StudentContext);
+  const { filterStudents } = useContext(StudentContext);
 
-  if (!students || students.length === 0) {
+  if (!filterStudents || filterStudents.length === 0) {
     return <h2 style={{ textAlign: 'center' }}>No Students Available.</h2>;
   }
 
@@ -14,7 +14,7 @@ export default function CardList() {
     <>
       <Container>
         <Row className='justify-content-center gap-4'>
-          {students.map((student) => {
+          {filterStudents.map((student) => {
             return <StudentCard key={student.id} {...student} />;
           })}
         </Row>

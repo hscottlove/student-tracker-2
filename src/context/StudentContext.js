@@ -5,6 +5,16 @@ const StudentContext = createContext();
 
 export const StudentProvider = ({ children }) => {
   const [students, setStudents] = useState(data);
+  const [search, setSearch] = useState('');
+
+  const filterStudents = students.filter((student) => {
+    return student.name.toLowerCase().includes(search.toLowerCase());
+  });
+
+  function handleSearchChange(e) {
+    console.log(e.target.value);
+    setSearch(e.target.value);
+  }
 
   function handleStudentAdd(newStudent) {
     newStudent.id = uuidv4();
@@ -21,6 +31,8 @@ export const StudentProvider = ({ children }) => {
     <StudentContext.Provider
       value={{
         students,
+        filterStudents,
+        handleSearchChange,
         handleStudentAdd,
         handleStudentDelete,
       }}
