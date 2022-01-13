@@ -5,8 +5,8 @@ import { Form, Row, Col, Container, Button } from 'react-bootstrap';
 export default function StudentEditForm() {
   const { handleStudentAdd } = useContext(StudentContext);
 
-  const defaultImage =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU';
+  // const defaultImage =
+  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU';
 
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
@@ -14,14 +14,35 @@ export default function StudentEditForm() {
   const [email, setEmail] = useState('');
   const [grade, setGrade] = useState('');
   const [notes, setNotes] = useState('');
+  const [message, setMessage] = useState('');
+  const [btnDiabled, setBtnDisabled] = useState(true);
+
+  const handleTest = (e) => {
+    if (name === '') {
+      setMessage(null);
+      setBtnDisabled(true);
+    } else if (name !== '' && name.trim().length <= 3) {
+      setMessage(`Please enter full name`);
+      setBtnDisabled(true);
+    } else {
+      setMessage(null);
+      setBtnDisabled(false);
+    }
+
+    setName(e.target.value);
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (name.trim().length === 1 || name === '') {
-      console.log(`Enter a full name`);
-      return null;
-    }
+    // if (name.trim().length === 1 || name === '') {
+    //   console.log(`Enter a full name`);
+    //   return null;
+    // }
+
+    // if (image === '') {
+    //   return setImage(defaultImage);
+    // }
 
     const newStudent = {
       name,
@@ -40,6 +61,7 @@ export default function StudentEditForm() {
     setEmail('');
     setGrade('');
     setNotes('');
+    setBtnDisabled(true);
   }
 
   return (
@@ -49,11 +71,20 @@ export default function StudentEditForm() {
           <Form.Group as={Col} htmlFor='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleTest}
               type='text'
               value={name}
               placeholder='Full name'
+              onPaste={(e) => {
+                e.preventDefault();
+                return false;
+              }}
+              onCopy={(e) => {
+                e.preventDefault();
+                return false;
+              }}
             />
+            {message && <div>{message}</div>}
           </Form.Group>
 
           <Form.Group as={Col} controlId='formGridImage'>
@@ -114,7 +145,7 @@ export default function StudentEditForm() {
           />
         </Form.Group>
 
-        <Button variant='primary' type='submit'>
+        <Button variant='primary' type='submit' disabled={btnDiabled}>
           Submit
         </Button>
       </Form>
