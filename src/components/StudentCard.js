@@ -10,14 +10,22 @@ export default function StudentCard(props) {
     <Card style={{ width: '18rem' }}>
       <Card.Img style={{ height: '200px' }} src={image} />
       <Card.Body>
-        <Card.Title>{name}</Card.Title>
+        <Card.Title className='form-title'>{name}</Card.Title>
         <hr />
-        <Card.Text>Notes: {notes}</Card.Text>
+        <Card.Text>
+          <span className='form-title'>Notes:</span> {notes}
+        </Card.Text>
       </Card.Body>
       <ListGroup className='list-group-flush'>
-        <ListGroupItem>Email: {email}</ListGroupItem>
-        <ListGroupItem>Phone: {phone}</ListGroupItem>
-        <ListGroupItem>Grade: {grade}</ListGroupItem>
+        <ListGroupItem>
+          <span className='form-title'>Email:</span> {email}
+        </ListGroupItem>
+        <ListGroupItem>
+          <span className='form-title'>Phone:</span> {phone}
+        </ListGroupItem>
+        <ListGroupItem>
+          <span className='form-title'>Grade:</span> {grade}
+        </ListGroupItem>
       </ListGroup>
       <Card.Body>
         <Button className='me-2' variant='primary'>

@@ -5,8 +5,8 @@ import { Form, Row, Col, Container, Button } from 'react-bootstrap';
 export default function StudentEditForm() {
   const { handleStudentAdd } = useContext(StudentContext);
 
-  // const defaultImage =
-  //   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU';
+  const defaultImage =
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU';
 
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
@@ -17,7 +17,7 @@ export default function StudentEditForm() {
   const [message, setMessage] = useState('');
   const [btnDiabled, setBtnDisabled] = useState(true);
 
-  const handleTest = (e) => {
+  const handleChangeInput = (value, e) => {
     if (name === '') {
       setMessage(null);
       setBtnDisabled(true);
@@ -29,20 +29,15 @@ export default function StudentEditForm() {
       setBtnDisabled(false);
     }
 
-    setName(e.target.value);
+    value(e.target.value);
   };
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    // if (name.trim().length === 1 || name === '') {
-    //   console.log(`Enter a full name`);
-    //   return null;
-    // }
-
-    // if (image === '') {
-    //   return setImage(defaultImage);
-    // }
+    if (image === '') {
+      return setImage(defaultImage);
+    }
 
     const newStudent = {
       name,
@@ -69,28 +64,20 @@ export default function StudentEditForm() {
       <Form className='mb-5' onSubmit={handleSubmit}>
         <Row className='mb-3'>
           <Form.Group as={Col} htmlFor='name'>
-            <Form.Label>Name</Form.Label>
+            <Form.Label className='form-title'>Name</Form.Label>
             <Form.Control
-              onChange={handleTest}
+              onChange={(e) => handleChangeInput(setName, e)}
               type='text'
               value={name}
               placeholder='Full name'
-              onPaste={(e) => {
-                e.preventDefault();
-                return false;
-              }}
-              onCopy={(e) => {
-                e.preventDefault();
-                return false;
-              }}
             />
             {message && <div>{message}</div>}
           </Form.Group>
 
           <Form.Group as={Col} controlId='formGridImage'>
-            <Form.Label>Image</Form.Label>
+            <Form.Label className='form-title'>Image</Form.Label>
             <Form.Control
-              onChange={(e) => setImage(e.target.value)}
+              onChange={(e) => handleChangeInput(setImage, e)}
               value={image}
               placeholder='Paste URL'
             />
@@ -99,9 +86,9 @@ export default function StudentEditForm() {
 
         <Row className='mb-3'>
           <Form.Group as={Col} htmlFor='phone'>
-            <Form.Label>Phone</Form.Label>
+            <Form.Label className='form-title'>Phone</Form.Label>
             <Form.Control
-              onChange={(e) => setPhone(e.target.value)}
+              onChange={(e) => handleChangeInput(setPhone, e)}
               value={phone}
               type='text'
               name='phone'
@@ -110,9 +97,9 @@ export default function StudentEditForm() {
           </Form.Group>
 
           <Form.Group as={Col} htmlFor='email'>
-            <Form.Label>Email</Form.Label>
+            <Form.Label className='form-title'>Email</Form.Label>
             <Form.Control
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => handleChangeInput(setEmail, e)}
               value={email}
               type='email'
               name='email'
@@ -121,9 +108,9 @@ export default function StudentEditForm() {
           </Form.Group>
 
           <Form.Group as={Col} htmlFor='grade'>
-            <Form.Label>Grade</Form.Label>
+            <Form.Label className='form-title'>Grade</Form.Label>
             <Form.Control
-              onChange={(e) => setGrade(e.target.value)}
+              onChange={(e) => handleChangeInput(setGrade, e)}
               value={grade}
               type='number'
               name='grade'
@@ -133,10 +120,10 @@ export default function StudentEditForm() {
         </Row>
 
         <Form.Group className='mb-3' htmlFor='notes'>
-          <Form.Label>Notes</Form.Label>
+          <Form.Label className='form-title'>Notes</Form.Label>
           <Form.Control
             style={{ resize: 'none' }}
-            onChange={(e) => setNotes(e.target.value)}
+            onChange={(e) => handleChangeInput(setNotes, e)}
             value={notes}
             name='notes'
             id='notes'

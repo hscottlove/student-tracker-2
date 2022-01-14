@@ -4,7 +4,6 @@ import StudentStats from './components/StudentStats';
 import CardList from './components/CardList';
 import { StudentProvider } from './context/StudentContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 
 function App() {
   return (
