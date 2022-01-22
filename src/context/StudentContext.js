@@ -52,7 +52,7 @@ const data = [
       'https://images.unsplash.com/photo-1618827840222-fcf8f42509c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
     email: 'mgarcia@gmail.com',
     phone: 9256496486,
-    grade: 91.3,
+    grade: 'A',
     notes: 'Schedual a meeting Monday to talk about grades.',
   },
   {
@@ -62,7 +62,7 @@ const data = [
       'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMGltYWdlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
     email: 'amanda@gmail.com',
     phone: 9259496020,
-    grade: 95,
+    grade: 'B',
     notes: 'Ask about project outline.',
   },
   {
@@ -72,7 +72,7 @@ const data = [
       'https://images.unsplash.com/photo-1601233749202-95d04d5b3c00?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjd8fHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60',
     email: 'jimjones77@gmail.com',
     phone: 7136476020,
-    grade: 85.4,
+    grade: 'C',
     notes: 'Email extra credit opportunities.',
   },
 ];

@@ -1,5 +1,5 @@
 import NavBar from './components/NavBar';
-import StudentEditForm from './components/StudentEditForm';
+import NewStudent from './components/NewStudent';
 import StudentStats from './components/StudentStats';
 import CardList from './components/CardList';
 import { StudentProvider } from './context/StudentContext';
@@ -9,7 +9,7 @@ function App() {
   return (
     <StudentProvider>
       <NavBar />
-      <StudentEditForm />
+      <NewStudent />
       <StudentStats />
       <CardList />
     </StudentProvider>
