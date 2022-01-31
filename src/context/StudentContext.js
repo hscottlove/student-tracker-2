@@ -5,6 +5,10 @@ const StudentContext = createContext();
 
 export const StudentProvider = ({ children }) => {
   const [students, setStudents] = useState(data);
+  const [studentEdit, setStudentEdit] = useState({
+    item: {},
+    edit: false,
+  });
   const [search, setSearch] = useState('');
 
   const filterStudents = students.filter((student) => {
@@ -21,6 +25,13 @@ export const StudentProvider = ({ children }) => {
     setStudents([newStudent, ...students]);
   }
 
+  function handleStudentEdit(item) {
+    setStudentEdit({
+      item,
+      edit: true,
+    });
+  }
+
   function handleStudentDelete(id) {
     if (window.confirm(`Are you sure you want to delete this student?`)) {
       setStudents(students.filter((student) => student.id !== id));
@@ -32,8 +43,10 @@ export const StudentProvider = ({ children }) => {
       value={{
         students,
         filterStudents,
+        studentEdit,
         handleSearchChange,
         handleStudentAdd,
+        handleStudentEdit,
         handleStudentDelete,
       }}
     >

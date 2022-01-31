@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import { Button, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import StudentContext from '../context/StudentContext';
 
-export default function StudentCard(props) {
-  const { id, name, image, email, phone, grade, notes } = props;
-  const { handleStudentDelete } = useContext(StudentContext);
+export default function StudentCard({ student }) {
+  const { id, name, image, email, phone, grade, notes } = student;
+  const { handleStudentDelete, handleStudentEdit } = useContext(StudentContext);
 
   return (
     <Card style={{ width: '18rem' }}>
@@ -28,7 +28,11 @@ export default function StudentCard(props) {
         </ListGroupItem>
       </ListGroup>
       <Card.Body>
-        <Button className='me-2' variant='primary'>
+        <Button
+          className='me-2'
+          onClick={() => handleStudentEdit(student)}
+          variant='primary'
+        >
           Edit
         </Button>
         <Button variant='danger' onClick={() => handleStudentDelete(id)}>

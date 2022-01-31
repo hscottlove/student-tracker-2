@@ -22,7 +22,7 @@ export default function CardList() {
       <Container>
         <Row className='justify-content-center gap-4'>
           {filterStudents.map((student) => {
-            return <StudentCard key={student.id} {...student} />;
+            return <StudentCard key={student.id} student={student} />;
           })}
         </Row>
       </Container>

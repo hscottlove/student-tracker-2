@@ -1,12 +1,9 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import StudentContext from '../context/StudentContext';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 
 const StudentForm = ({ handleAddClose }) => {
-  const { handleStudentAdd } = useContext(StudentContext);
-  const defaultImage =
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU';
-
+  const { handleStudentAdd, studentEdit } = useContext(StudentContext);
   const [formInfo, setFormInfo] = useState({
     name: '',
     image: '',
@@ -17,6 +14,13 @@ const StudentForm = ({ handleAddClose }) => {
   });
   const [message, setMessage] = useState('');
   const [btnDiabled, setBtnDisabled] = useState(true);
+
+  useEffect(() => {
+    console.log('test');
+  }, [studentEdit]);
+
+  const defaultImage =
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU';
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
