@@ -7,17 +7,21 @@ const StudentForm = ({ handleAddClose }) => {
   const defaultImage =
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgprFQGqxHFOm1UVGESj3v-16NVyvBiwiF-sHUGakrPBeDJ6Uh8uvJbDFMttF4dL1XGO8&usqp=CAU';
 
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [grade, setGrade] = useState('');
-  const [notes, setNotes] = useState('');
+  const [formInfo, setFormInfo] = useState({
+    name: '',
+    image: '',
+    phone: '',
+    email: '',
+    grade: '',
+    notes: '',
+  });
   const [message, setMessage] = useState('');
   const [btnDiabled, setBtnDisabled] = useState(true);
 
-  const handleChangeInput = (value, e) => {
-    if (name === '') {
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+
+    if (formInfo.name === '') {
       setMessage(null);
       setBtnDisabled(true);
     } else if (name !== '' && name.trim().length <= 3) {
@@ -28,14 +32,25 @@ const StudentForm = ({ handleAddClose }) => {
       setBtnDisabled(false);
     }
 
-    value(e.target.value);
+    setFormInfo((prevForm) => {
+      return {
+        ...prevForm,
+        [name]: value,
+      };
+    });
   };
 
   function handleSubmit(e) {
     e.preventDefault();
+    const { name, image, phone, email, grade, notes } = formInfo;
 
     if (image === '') {
-      return setImage(defaultImage);
+      return setFormInfo((prev) => {
+        return {
+          ...prev,
+          image: defaultImage,
+        };
+      });
     }
 
     const newStudent = {
@@ -49,12 +64,7 @@ const StudentForm = ({ handleAddClose }) => {
 
     handleStudentAdd(newStudent);
 
-    setName('');
-    setImage('');
-    setPhone('');
-    setEmail('');
-    setGrade('');
-    setNotes('');
+    setFormInfo('');
     setBtnDisabled(true);
     handleAddClose();
   }
@@ -65,9 +75,10 @@ const StudentForm = ({ handleAddClose }) => {
         <Form.Group as={Col} htmlFor='name'>
           <Form.Label className='form-title'>Name</Form.Label>
           <Form.Control
-            onChange={(e) => handleChangeInput(setName, e)}
+            onChange={handleChangeInput}
             type='text'
-            value={name}
+            value={formInfo.name}
+            name='name'
             placeholder='Full name'
           />
           {message && <div>{message}</div>}
@@ -76,8 +87,9 @@ const StudentForm = ({ handleAddClose }) => {
         <Form.Group as={Col} controlId='formGridImage'>
           <Form.Label className='form-title'>Image</Form.Label>
           <Form.Control
-            onChange={(e) => handleChangeInput(setImage, e)}
-            value={image}
+            onChange={handleChangeInput}
+            value={formInfo.image}
+            name='image'
             placeholder='Paste URL'
           />
         </Form.Group>
@@ -87,8 +99,8 @@ const StudentForm = ({ handleAddClose }) => {
         <Form.Group as={Col} htmlFor='phone'>
           <Form.Label className='form-title'>Phone</Form.Label>
           <Form.Control
-            onChange={(e) => handleChangeInput(setPhone, e)}
-            value={phone}
+            onChange={handleChangeInput}
+            value={formInfo.phone}
             type='text'
             name='phone'
             id='phone'
@@ -98,8 +110,8 @@ const StudentForm = ({ handleAddClose }) => {
         <Form.Group as={Col} htmlFor='email'>
           <Form.Label className='form-title'>Email</Form.Label>
           <Form.Control
-            onChange={(e) => handleChangeInput(setEmail, e)}
-            value={email}
+            onChange={handleChangeInput}
+            value={formInfo.email}
             type='email'
             name='email'
             id='email'
@@ -109,8 +121,8 @@ const StudentForm = ({ handleAddClose }) => {
         <Form.Group as={Col} htmlFor='grade'>
           <Form.Label className='form-title'>Letter Grade</Form.Label>
           <Form.Select
-            onChange={(e) => handleChangeInput(setGrade, e)}
-            value={grade}
+            onChange={handleChangeInput}
+            value={formInfo.grade}
             type='number'
             name='grade'
             id='grade'
@@ -129,8 +141,8 @@ const StudentForm = ({ handleAddClose }) => {
         <Form.Label className='form-title'>Notes</Form.Label>
         <Form.Control
           style={{ resize: 'none' }}
-          onChange={(e) => handleChangeInput(setNotes, e)}
-          value={notes}
+          onChange={handleChangeInput}
+          value={formInfo.notes}
           name='notes'
           id='notes'
           as='textarea'

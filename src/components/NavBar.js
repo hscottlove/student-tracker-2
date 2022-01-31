@@ -9,6 +9,7 @@ import StudentContext from '../context/StudentContext';
 
 export default function NavBar() {
   const { handleSearchChange } = useContext(StudentContext);
+
   return (
     <Navbar bg='light' expand='lg' className='mb-5'>
       <Container>
